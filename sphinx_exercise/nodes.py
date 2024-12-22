@@ -50,7 +50,7 @@ class solution_end_node(docutil_nodes.Admonition, docutil_nodes.Element):
 class exercise_title(docutil_nodes.title):
     def default_title(self):
         title_text = self.children[0].astext()
-        if title_text == "Exercise" or title_text == "Exercise %s":
+        if title_text == "Opgave" or title_text == "Opgave %s":
             return True
         else:
             return False
@@ -63,7 +63,7 @@ class exercise_subtitle(docutil_nodes.subtitle):
 class solution_title(docutil_nodes.title):
     def default_title(self):
         title_text = self.children[0].astext()
-        if title_text == "Solution to":
+        if title_text == "Oplossing op":
             return True
         else:
             return False
