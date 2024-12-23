@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "sphinx-exercise"
+name = "sphinx-exercise-nl"
 dynamic = ["version"]
-description = "A Sphinx extension for producing exercises and solutions."
+description = "A Dutch translation of Sphinx-exercise."
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.9"
