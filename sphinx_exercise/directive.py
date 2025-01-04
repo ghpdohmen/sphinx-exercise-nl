@@ -75,7 +75,7 @@ class ExerciseDirective(SphinxExerciseBaseDirective):
                 Removes the directive from the final output.
     """
 
-    name = "exercise"
+    name = "opgave"
     has_content = True
     required_arguments = 0
     optional_arguments = 1
@@ -105,7 +105,7 @@ class ExerciseDirective(SphinxExerciseBaseDirective):
         else:
             node = exercise_enumerable_node()
 
-        if self.name == "exercise-start":
+        if self.name == "opgave-start":
             node.gated = True
 
         # Parse custom subtitle option
@@ -118,7 +118,7 @@ class ExerciseDirective(SphinxExerciseBaseDirective):
             title += subtitle
 
         # State Parsing
-        section = nodes.section(ids=["exercise-content"])
+        section = nodes.section(ids=["opgave-content"])
         self.state.nested_parse(self.content, self.content_offset, section)
 
         # Construct a label
@@ -128,7 +128,7 @@ class ExerciseDirective(SphinxExerciseBaseDirective):
             self.options["noindex"] = False
         else:
             self.options["noindex"] = True
-            label = f"{self.env.docname}-exercise-{self.serial_number}"
+            label = f"{self.env.docname}-opgave-{self.serial_number}"
 
         # Check for Duplicate Labels
         # TODO: Should we just issue a warning rather than skip content?
@@ -176,9 +176,9 @@ class ExerciseDirective(SphinxExerciseBaseDirective):
 
 class SolutionDirective(SphinxExerciseBaseDirective):
     """
-    A solution directive
+    A oplossing directive
 
-    .. solution:: <exercise-reference>
+    .. oplossing:: <exercise-reference>
        :label:
        :class:
        :hidden:
@@ -203,7 +203,7 @@ class SolutionDirective(SphinxExerciseBaseDirective):
     Checking for target reference is done in post_transforms for Solution Titles
     """
 
-    name = "solution"
+    name = "oplossing"
     has_content = True
     required_arguments = 1
     optional_arguments = 0
@@ -233,7 +233,7 @@ class SolutionDirective(SphinxExerciseBaseDirective):
         title += nodes.Text(self.defaults["title_text"])
 
         # State Parsing
-        section = nodes.section(ids=["solution-content"])
+        section = nodes.section(ids=["oplossing-content"])
         self.state.nested_parse(self.content, self.content_offset, section)
 
         # Fetch Label or Generate One
@@ -243,7 +243,7 @@ class SolutionDirective(SphinxExerciseBaseDirective):
             self.options["noindex"] = False
         else:
             self.options["noindex"] = True
-            label = f"{self.env.docname}-solution-{self.serial_number}"
+            label = f"{self.env.docname}-oplossing-{self.serial_number}"
 
         # Check for duplicate labels
         # TODO: Should we just issue a warning rather than skip content?
@@ -302,7 +302,7 @@ class ExerciseStartDirective(ExerciseDirective):
     all the same options as the base exercise node
     """
 
-    name = "exercise-start"
+    name = "opgave-start"
 
     def run(self):
         # Initialise Gated Registry
@@ -316,7 +316,7 @@ class ExerciseStartDirective(ExerciseDirective):
                 "end": [],
                 "sequence": [],
                 "msg": [],
-                "type": "exercise",
+                "type": "opgave",
             }
         gated_registry[self.env.docname]["start"].append(self.lineno)
         gated_registry[self.env.docname]["sequence"].append("S")
@@ -334,7 +334,7 @@ class ExerciseEndDirective(SphinxDirective):
     .. exercise-end::
     """
 
-    name = "exercise-end"
+    name = "opgave-end"
 
     def run(self):
         # Initialise Gated Registry
@@ -348,7 +348,7 @@ class ExerciseEndDirective(SphinxDirective):
                 "end": [],
                 "sequence": [],
                 "msg": [],
-                "type": "exercise",
+                "type": "opgave",
             }
         gated_registry[self.env.docname]["end"].append(self.lineno)
         gated_registry[self.env.docname]["sequence"].append("E")
@@ -371,7 +371,7 @@ class SolutionStartDirective(SolutionDirective):
     all the same options as the base solution node
     """
 
-    name = "solution-start"
+    name = "oplossing-start"
     solution_node = solution_start_node
 
     def run(self):
@@ -386,12 +386,12 @@ class SolutionStartDirective(SolutionDirective):
                 "end": [],
                 "sequence": [],
                 "msg": [],
-                "type": "solution",
+                "type": "oplossing",
             }
         gated_registry[self.env.docname]["start"].append(self.lineno)
         gated_registry[self.env.docname]["sequence"].append("S")
         gated_registry[self.env.docname]["msg"].append(
-            f"solution-start at line: {self.lineno}"
+            f"oplossing-start at line: {self.lineno}"
         )
         # Run Parent Methods
         return super().run()
@@ -404,7 +404,7 @@ class SolutionEndDirective(SphinxDirective):
     .. solution-end::
     """
 
-    name = "solution-end"
+    name = "oplossing-end"
 
     def run(self):
         # Initialise Gated Registry (if required)
@@ -418,11 +418,11 @@ class SolutionEndDirective(SphinxDirective):
                 "end": [],
                 "sequence": [],
                 "msg": [],
-                "type": "solution",
+                "type": "oplossing",
             }
         gated_registry[self.env.docname]["end"].append(self.lineno)
         gated_registry[self.env.docname]["sequence"].append("E")
         gated_registry[self.env.docname]["msg"].append(
-            f"solution-end at line: {self.lineno}"
+            f"oplossing-end at line: {self.lineno}"
         )
         return [solution_end_node()]

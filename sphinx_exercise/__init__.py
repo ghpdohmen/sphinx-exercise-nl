@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-sphinx_exercise
+sphinx_exercise-nl
 ~~~~~~~~~~~~~~~
 This package is an extension for sphinx to support exercise and solutions.
 :copyright: Copyright 2020-2021 by the Executable Books team, see AUTHORS.
@@ -106,7 +106,7 @@ def init_numfig(app: Sphinx, config: Config) -> None:
     """Initialize numfig"""
 
     config["numfig"] = True
-    numfig_format = {"exercise": "Exercise %s"}
+    numfig_format = {"opgave": "Opgave %s"}
     # Merge with current sphinx settings
     numfig_format.update(config.numfig_format)
     config.numfig_format = numfig_format
@@ -161,7 +161,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 
     app.add_enumerable_node(
         exercise_enumerable_node,
-        "exercise",
+        "opgave",
         None,
         singlehtml=(visit_exercise_enumerable_node, depart_exercise_enumerable_node),
         html=(visit_exercise_enumerable_node, depart_exercise_enumerable_node),
@@ -193,12 +193,12 @@ def setup(app: Sphinx) -> Dict[str, Any]:
         ),
     )
 
-    app.add_directive("exercise", ExerciseDirective)
-    app.add_directive("exercise-start", ExerciseStartDirective)
-    app.add_directive("exercise-end", ExerciseEndDirective)
-    app.add_directive("solution", SolutionDirective)
-    app.add_directive("solution-start", SolutionStartDirective)
-    app.add_directive("solution-end", SolutionEndDirective)
+    app.add_directive("opgave", ExerciseDirective)
+    app.add_directive("opgave-start", ExerciseStartDirective)
+    app.add_directive("opgave-end", ExerciseEndDirective)
+    app.add_directive("oplossing", SolutionDirective)
+    app.add_directive("oplossing-start", SolutionStartDirective)
+    app.add_directive("oplossing-end", SolutionEndDirective)
 
     app.add_transform(CheckGatedDirectives)
     app.add_transform(MergeGatedExercises)

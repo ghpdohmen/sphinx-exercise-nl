@@ -53,7 +53,7 @@ class CheckGatedDirectives(SphinxTransform):
                     logger.error(msg)
                     error = True
         if error:
-            msg = "[sphinx-exercise] An error has occured when parsing gated directives.\nPlease check warning messages above"  # noqa: E501
+            msg = "[sphinx-exercise-nl] An error has occured when parsing gated directives.\nPlease check warning messages above"  # noqa: E501
             raise ExtensionError(message=msg)
 
     def apply(self):
@@ -100,10 +100,10 @@ class MergeGatedSolutions(SphinxTransform):
             new_node.attributes = node.attributes
             # Update Attributes
             new_node["classes"] = [
-                attr.replace("solution-start", "solution")
+                attr.replace("oplossing-start", "oplossing")
                 for attr in node.attributes["classes"]
             ]
-            new_node["type"] = "solution"
+            new_node["type"] = "oplossing"
             new_node.parent = node.parent
             for child in node.children:
                 if type(child) is docutils.nodes.section:
@@ -112,7 +112,7 @@ class MergeGatedSolutions(SphinxTransform):
                     new_node += child
             # Collect nodes attached to the Parent Node until :solution-end:
             content = docutils.nodes.section(
-                ids=["solution-content"]
+                ids=["oplossing-content"]
             )  # TODO: should id be classes?
             for child in parent.children[parent_start + 1 : parent_end]:
                 content += child
