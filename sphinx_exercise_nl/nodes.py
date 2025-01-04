@@ -106,7 +106,7 @@ def is_extension_node(node):
 def visit_exercise_node(self, node: Node) -> None:
     if isinstance(self, LaTeXTranslator):
         label = (
-            "\\phantomsection \\label{" + f"exercise:{node.attributes['label']}" + "}"
+            "\\phantomsection \\label{" + f"opgave:{node.attributes['label']}" + "}"
         )  # TODO: Check this resolves.
         self.body.append(label)
         self.body.append(LaTeX.visit_admonition())
@@ -129,7 +129,7 @@ def visit_exercise_enumerable_node(self, node: Node) -> None:
     """
     if isinstance(self, LaTeXTranslator):
         label = (
-            "\\phantomsection \\label{" + f"exercise:{node.attributes['label']}" + "}\n"
+            "\\phantomsection \\label{" + f"opgave:{node.attributes['label']}" + "}\n"
         )
         self.body.append(label)
         self.body.append(LaTeX.visit_admonition())
@@ -177,7 +177,7 @@ def depart_solution_node(self, node: Node) -> None:
 def visit_exercise_latex_number_reference(self, node):
     id = node.get("refid")
     text = node.astext()
-    hyperref = r"\hyperref[exercise:%s]{%s}" % (id, text)
+    hyperref = r"\hyperref[opgave:%s]{%s}" % (id, text)
     self.body.append(hyperref)
     raise docutil_nodes.SkipNode
 
