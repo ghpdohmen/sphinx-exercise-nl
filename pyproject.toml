@@ -73,4 +73,4 @@ Source = "https://github.com/executablebooks/sphinx-exercise"
 Tracker = "https://github.com/executablebooks/sphinx-exercise/issues"
 
 [tool.hatch.version]
-path = "sphinx_exercise/__init__.py"
+path = "sphinx_exercise_nl/__init__.py"
